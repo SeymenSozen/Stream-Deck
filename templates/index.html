@@ -23,14 +23,14 @@
             height: 100vh;
             box-sizing: border-box;
         }
-        .deck_button {
+        .deck_button {  
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             aspect-ratio: 1/1;
-            transition: all 0.2s;
+            transition: all 0.3s;
             -webkit-tap-highlight-color: transparent;
             text-decoration: none;
             user-select: none;
@@ -51,26 +51,28 @@
             border: 1px solid #333;
             pointer-events: none;
         }
-
-
-
         .deck_button img{
-            transition: all 0.3s;
+            transition: all 0.4s;
             width: 60%;
             height: auto;
             margin-bottom: 2px;
         }
         .neon-active{
-            border: 2px solid rgb(0, 255, 0) !important;
+            border: 2px solid rgb(0, 210, 0) !important;
             box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
         }
         .neon-passive{
-            border: 2px solid rgb(255, 0, 0) !important;
+            border: 2px solid rgb(213, 1, 1) !important;
             box-shadow: 0 0 10px #FF3131, 0 0 20px #FF3131;
         }
-
-
-
+        .neon-static{
+            border: 2px solid rgba(0, 255, 255, 0.87) !important;
+            box-shadow: 0 0 10px #00d4d4, 0 0 20px #02d6d6;
+        }
+        .neon-static-active{
+            border: 2px solid rgba(208, 255, 0, 0.87) !important;
+            box-shadow: 0 0 10px #d4c600, 0 0 20px #cbd602;         
+        }
         .deck_button span{
             font-size: 0.8rem;
             color: black;
@@ -89,25 +91,33 @@
     </style>
 </head>
 <body>
-    <div class="grid_container">
-        {% for btn in buttons %}
-            {% if btn.id %}
-            <div class="deck_button btn_active" 
+<div class="grid_container">
+    {% for btn in buttons %}
+        {% if btn.id %}
+            <div class="deck_button btn_active 
+                {% if btn.type == 'switch' %}
+                    {{ 'neon-active' if btn.value == 1 else 'neon-passive' }}
+                {% else %}
+                    neon-static
+                {% endif %}" 
                 onclick="SendCommand(this,'{{ btn.id }}')"
+                
                 {% if btn.type == "switch" %}
-                data-type = "switch"
-                data-value = "{{ btn.value }}"
-                data-active-image = "{{ btn.active_image }}"
-                data-passive-image = "{{ btn.passive_image }}"
-                {% endif %}>
+                    data-type="switch"
+                    data-value="{{ btn.value }}"
+                    data-active-image="{{ btn.active_image }}"
+                    data-passive-image="{{ btn.passive_image }}"
+                {% else %}
+                    data-type="static"
+                {% endif %}> {# Buradaki fazla satırları sildik ve etiketi kapattık #}
                 <img src="{{ btn.img }}" alt="">
                 <span>{{ btn.label }}</span>
             </div>
-            {% else %}
+        {% else %}
             <div class="deck_button btn_empty"> </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+        {% endif %}
+    {% endfor %}
+</div>
     <script>
         function SendCommand(element,action) {
             if (element.getAttribute('data-type') == 'switch') {
@@ -122,7 +132,12 @@
                     element.querySelector('img').src = element.getAttribute('data-passive-image');
                     element.classList.remove('neon-active');
                     element.classList.add('neon-passive');
-            }
+            }}
+            else if (element.getAttribute('data-type') == 'static') {
+                element.classList.add('neon-static-active');
+                setTimeout(() => {
+                    element.classList.remove('neon-static-active');
+                }, 180);
             }
 
 

@@ -9,7 +9,7 @@ buttons = [
     {
         "pos":(0,0),
         "type":"switch",
-        "value":1,
+        "value":0,
         "id":"Mic",
         "label":"Mikrofon",
         "active_image":"https://media.istockphoto.com/id/1298266863/vector/retro-microphone-vector-sign.jpg?s=612x612&w=0&k=20&c=gWqaiRyIC7csOCQ7SF-dO8-dtgUYdCUSBXBwmA2OUNA=",
@@ -18,7 +18,7 @@ buttons = [
         {
         "pos":(0,1),
         "type":"switch",
-        "value":1,
+        "value":0,
         "id":"Mic",
         "label":"Discord Mikrofon",
         "active_image":"https://images.ctfassets.net/h50kqpe25yx1/7EZbsGciGNJpOd6nxEwdfA/3da50880bb5b9e364d8b275c99d4b132/elgato-x-discord-grid-card-2.jpg",

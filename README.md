@@ -11,7 +11,7 @@ Profesyonel olmasamda yayıncılık ile uğraştığım için geliştirdiğim bi
 
 ## 🛠️ Kurulum
 1. Projeyi bilgisayarınıza indirin:
-git clone https://github.com/seymensozen/strem-mdeck.git
+git clone https://github.com/SeymenSozen/Stream-Deck.git
 2. Gerekli kütüphaneleri yükleyin:
 pip install flask
 3.uygulamayı başlatın:
