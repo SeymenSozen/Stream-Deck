@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Deck</title>
+    <style>
+        body{
+            background-color: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .grid_container {
+            display: grid;
+            grid-template-columns: repeat(12,1fr);
+            gap: 5px;
+            padding: 10px;
+            width: 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .deck_button {
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1/1;
+            transition: all 0.1s;
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none;
+            user-select: none;
+        }
+        .btn_active {
+            background-color: aqua;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+        .btn_active:active{
+            transform: scale(0.9);
+            background-color: yellow;
+        }
+        .btn_empty{
+            background-color: #1a1a11;
+            border: 1px solid #333;
+            pointer-events: none;
+        }
+        .deck_button img{
+            width: 60%;
+            height: auto;
+            margin-bottom: 2px;
+        }
+        .deck_button span{
+            font-size: 0.8rem;
+            color: black;
+            font-weight: 800;
+            margin-top: 4px;
+            text-align: center;
+            width: 95%;
+            line-height: 1;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;       
+        }
+    </style>
+</head>
+<body>
+    <div class="grid_container">
+        {% for btn in buttons %}
+            {% if btn.id %}
+            <div class="deck_button btn_active" onclick="SendCommand('{{ btn.id }}')"> 
+                <img src="{{ btn.img }}" alt="">
+                <span>{{ btn.label }}</span>
+            </div>
+            {% else %}
+            <div class="deck_button btn_empty"> </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <script>
+        function SendCommand(action) {
+            fetch('/action/' + action)
+            .then(() => console.log('Gönderildi: ' + action))
+            .catch(err => console.error('Hata:', err));
+        }
+    </script>
+</body>
+</html>
