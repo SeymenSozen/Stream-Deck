@@ -24,7 +24,6 @@ buttons = [
         "active_image":"https://images.ctfassets.net/h50kqpe25yx1/7EZbsGciGNJpOd6nxEwdfA/3da50880bb5b9e364d8b275c99d4b132/elgato-x-discord-grid-card-2.jpg",
         "passive_image":'https://cdn.discordapp.com/attachments/1088850571492445481/1126034867081864060/discord-mic-off-icon-10.jpg'
     },
-
     {
         "pos":(0,2),
         "type":"action",
