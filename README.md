@@ -11,17 +11,11 @@ Profesyonel olmasamda yayıncılık ile uğraştığım için geliştirdiğim bi
 
 ## 🛠️ Kurulum
 1. Projeyi bilgisayarınıza indirin:
-\`\`\`bash
 git clone https://github.com/seymensozen/strem-mdeck.git
-\`\`\`
 2. Gerekli kütüphaneleri yükleyin:
-\`\`\`bash
 pip install flask
-\`\`\`
 3.uygulamayı başlatın:
-\`\`\`bash
 python app.py
-\`\`\`
 4.Telefonunuzun tarayıcısından bilgisayarınızın yerel IP adresine gidin: http://bilgisayar-ip-adresiniz:33333
 
 🚀 Yol Haritası (Gelecek Özellikler)

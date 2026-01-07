@@ -30,30 +30,47 @@
             justify-content: center;
             align-items: center;
             aspect-ratio: 1/1;
-            transition: all 0.1s;
+            transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
             text-decoration: none;
             user-select: none;
         }
         .btn_active {
-            background-color: aqua;
+            background-color: rgb(36, 65, 65);
             border: 1px solid #333;
             cursor: pointer;
+            border-radius: 7px;
+            border-color: red;
         }
         .btn_active:active{
             transform: scale(0.9);
-            background-color: yellow;
+            background-color: rgb(0, 255, 170);
         }
         .btn_empty{
             background-color: #1a1a11;
             border: 1px solid #333;
             pointer-events: none;
         }
+
+
+
         .deck_button img{
+            transition: all 0.3s;
             width: 60%;
             height: auto;
             margin-bottom: 2px;
         }
+        .neon-active{
+            border: 2px solid rgb(0, 255, 0) !important;
+            box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+        }
+        .neon-passive{
+            border: 2px solid rgb(255, 0, 0) !important;
+            box-shadow: 0 0 10px #FF3131, 0 0 20px #FF3131;
+        }
+
+
+
         .deck_button span{
             font-size: 0.8rem;
             color: black;
@@ -68,13 +85,21 @@
             -webkit-box-orient: vertical;
             overflow: hidden;       
         }
+
     </style>
 </head>
 <body>
     <div class="grid_container">
         {% for btn in buttons %}
             {% if btn.id %}
-            <div class="deck_button btn_active" onclick="SendCommand('{{ btn.id }}')"> 
+            <div class="deck_button btn_active" 
+                onclick="SendCommand(this,'{{ btn.id }}')"
+                {% if btn.type == "switch" %}
+                data-type = "switch"
+                data-value = "{{ btn.value }}"
+                data-active-image = "{{ btn.active_image }}"
+                data-passive-image = "{{ btn.passive_image }}"
+                {% endif %}>
                 <img src="{{ btn.img }}" alt="">
                 <span>{{ btn.label }}</span>
             </div>
@@ -84,7 +109,23 @@
         {% endfor %}
     </div>
     <script>
-        function SendCommand(action) {
+        function SendCommand(element,action) {
+            if (element.getAttribute('data-type') == 'switch') {
+                let currentValue = element.getAttribute('data-value');
+                if (currentValue == "0") {
+                    element.setAttribute('data-value', "1");
+                    element.querySelector('img').src = element.getAttribute('data-active-image');
+                    element.classList.remove('neon-passive');
+                    element.classList.add('neon-active');
+                } else {
+                    element.setAttribute('data-value', "0");
+                    element.querySelector('img').src = element.getAttribute('data-passive-image');
+                    element.classList.remove('neon-active');
+                    element.classList.add('neon-passive');
+            }
+            }
+
+
             fetch('/action/' + action)
             .then(() => console.log('Gönderildi: ' + action))
             .catch(err => console.error('Hata:', err));
