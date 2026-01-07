@@ -31,3 +31,4 @@ python app.py
 [ ] Dinamik İkonlar: OBS durumuna göre (Örn: Mikrofon sessizdeyse ikonun değişmesi) gerçek zamanlı güncellemeler.
 [ ] Config Dosyası: Butonları kodun içinden değil, bir JSON veya YAML dosyasından yönetme.
 
+# Test
